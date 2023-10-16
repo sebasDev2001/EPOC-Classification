@@ -18,7 +18,7 @@ from sklearn.metrics import (accuracy_score, classification_report,
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader
 from torchvision import datasets, models, transforms
-from processing import processing
+from scripts.processing import processing
 
 load_dotenv()
 cudnn.benchmark = True
@@ -29,10 +29,6 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 def warn(*args, **kwargs):
     pass
 warnings.warn = warn
-
-GB_DIR = "./models/machine_learning/GradientBoost_model.pkl"
-NN_DIR = "./sebas/tests/try_2/resnet_18_finetuning.pth"
-
 class MergeModel:
     def __init__(self, base_model, nn_model, nn_weight=0.5, gb_weight=0.5, print_matrix=True) -> None:
         self.base_model = base_model
@@ -171,7 +167,3 @@ class MergeModel:
         )
         fig.update_layout(width=800, height=400)
         fig.show()
-
-if __name__ == "__main__":
-    model = MergeModel(GB_DIR, NN_DIR, 0.25, 0.75)
-    model.eval_model()
