@@ -9,12 +9,16 @@ import plotly.figure_factory as ff
 import torch
 import torch.backends.cudnn as cudnn
 import torch.nn as nn
-import torch.nn.functional as F
 from dotenv import load_dotenv
 from PIL import Image
-from sklearn.metrics import (accuracy_score, classification_report,
-                             confusion_matrix, f1_score, precision_score,
-                             recall_score)
+from sklearn.metrics import (
+    accuracy_score,
+    classification_report,
+    confusion_matrix,
+    f1_score,
+    precision_score,
+    recall_score,
+)
 from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader
 from torchvision import datasets, models, transforms
@@ -28,7 +32,11 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 def warn(*args, **kwargs):
     pass
+
+
 warnings.warn = warn
+
+
 class MergeModel:
     def __init__(self, base_model, nn_model, nn_weight=0.5, gb_weight=0.5, print_matrix=True) -> None:
         self.base_model = base_model
@@ -128,7 +136,9 @@ class MergeModel:
         cm = confusion_matrix(labels, predictions)
         classification_report(labels, predictions)
 
-        print(f"Accuracy: {accuracy:.3f}\nPresicion: {presicion:.3f}\nRecall: {recall:.3f}\nf1_score: {f1_score_res:.3f}\n")
+        print(
+            f"Accuracy: {accuracy:.3f}\nPresicion: {presicion:.3f}\nRecall: {recall:.3f}\nf1_score: {f1_score_res:.3f}\n"
+        )
         print(f"{cm}\n")
         if self.print_matrix:
             self.create_cm(cm, "MergeModel")
